@@ -1,11 +1,19 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { Store } from './redux/store';
+import Memestream from './components/Memestream';
+const store = Store()
 
 function App() {
   return (
-    <div className="App">
-      Meme stream application
-    </div>
+      <Provider store={store}>
+        <BrowserRouter>
+          <div>
+            <Memestream />
+          </div>
+        </BrowserRouter>
+      </Provider>
   );
 }
 
