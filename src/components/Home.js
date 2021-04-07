@@ -35,39 +35,42 @@ class Home extends Component {
     }
 
     showMeme() {
-        const memeFunction = this.props.memes.map((iterator) => {
+        // console.log(typeof(this.props.memes))
+        const memeFunction = this.props.memes.map((meme) => {
             return (
-                <div className="col-12 col-md-4 col-sm-6 mt-3" key={iterator._id}>
+                <div className="col-12 col-md-4 col-sm-6 mt-3" key={meme.id}>
                     <Card>
                         <CardBody>
-                            <CardTitle tag="h1">{iterator.name}</CardTitle>
-                            <CardSubtitle tag="h2" className="mb-1 text-muted">
-                                {iterator.caption}
+                            <CardTitle tag="h5">{meme.name}</CardTitle>
+                            <CardSubtitle tag="h6" className="mb-1 text-muted">
+                                {meme.caption}
                             </CardSubtitle>
                         </CardBody>
-                        <img width="70%" src={iterator.url} alt="Card image cap" />
+                        <img width="100%" src={meme.url} alt={meme.url} />
                         <CardBody>
                             <Button color="primary" onClick={() => {
-                                this.setState({id: iterator._id, name: iterator.name, caption: iterator.caption,
-                                        url: iterator.url, isModalOpen: !this.state.isModalOpen});
-                                }}>Edit
-                            </Button>
-                            <Button color="danger" className="ml-3" 
-                                onClick={() => {
-                                    this.handleDelete(iterator._id);
-                                }}>Delete
-                            </Button>
+                                this.setState({
+                                    id: meme.id,
+                                    name: meme.name,
+                                    caption: meme.caption,
+                                    url: meme.url,
+                                    isModalOpen: !this.state.isModalOpen
+                                });
+                            }}>Edit</Button>
+                            <Button color="danger" className="ml-3" onClick={() => {
+                                this.handleDelete(meme.id);
+                            }}>Delete</Button>
                         </CardBody>
                     </Card>
                 </div>
             );
         })
         return (
-            <div className="row row-content"
-                style={{ maxHeight: "100px", width: "70%" }}>
-                    {memeFunction}
+            <div className="row row-content overflow-auto" 
+                style={{ maxHeight: "200px", width: "100%" }}>
+                {memeFunction}
             </div>
-        )
+        );
     }
 
     handleDelete(memeId) {

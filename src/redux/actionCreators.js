@@ -1,6 +1,7 @@
 import * as ActionTypes from './actionTypes';
 
 export const baseUrl = 'http://localhost:8081/memes';
+
 export const fetchMemes = () => (dispatch) => {
     return fetch(baseUrl)
         .then(res => {
@@ -17,6 +18,88 @@ export const fetchMemes = () => (dispatch) => {
             dispatch(addMeme(memes))
         })
         .catch(err => dispatch(memeFailed(err.message)))
+}
+
+export const postMemes = (name, caption, url) => (dispatch) => {
+    const data = {
+        name: name,
+        caption: caption,
+        url: url
+    }
+
+    fetch(baseUrl, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+    }).then(response => {
+        if (response.ok)
+            return response
+        else {
+            var error = new Error('Error' + response.status + ":" + response.statusText)
+            error.response = response
+            throw error
+        }
+    })
+    .then(res => res.json())
+    .then(res => dispatch(addMeme(res)))
+    .catch(err => {
+        alert(`Your meme couldn't be posted` + err.message)
+    })
+}
+
+export const deleteMemes = (memeId) => (dispatch) => {
+    fetch(baseUrl + '/' + memeId, {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+    }).then(response => {
+        if (response.ok)
+            return response
+        else {
+            var error = new Error('Error' + response.status + ":" + response.statusText)
+            error.response = response
+            throw error
+        }
+    })
+    .then(response => response.json())
+    .then(response => dispatch(addMeme(response)))
+    .catch(error => {
+        alert(`Your meme couldn't be deleted` + error.message)
+    })
+}
+
+export const updateMemes = (memeId, name, caption, url) => (dispatch) => {
+    const data = {
+        name: name,
+        caption: caption,
+        url: url
+    }
+    fetch(baseUrl + '/' + memeId, {
+        method: 'PATCH',
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+    }).then(response => {
+        if (response.ok)
+            return response
+        else {
+            var error = new Error('Error' + response.status + ":" + response.statusText);
+            error.response = response
+            throw error
+        }
+    })
+    .then(response => response.json())
+    .then(response => dispatch(addMeme(response)))
+    .catch(error => {
+        alert(`Your meme couldn't be updated\nError:` + error.message)
+    })
 }
 
 export const addMeme = (memes) => ({
