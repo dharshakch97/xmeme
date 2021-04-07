@@ -141,8 +141,8 @@ class Home extends Component {
                             </Form>
                         </div>
                     </div>
-                    <this.showMeme />
                 </div>
+                <this.showMeme />
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>
                         Edit
