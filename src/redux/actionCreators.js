@@ -14,9 +14,7 @@ export const fetchMemes = () => (dispatch) => {
             }
         })
         .then(res => res.json())
-        .then(memes => {
-            dispatch(addMeme(memes))
-        })
+        .then(memes => {dispatch(addMeme(memes))})
         .catch(err => dispatch(memeFailed(err.message)))
 }
 
@@ -44,10 +42,8 @@ export const postMemes = (name, caption, url) => (dispatch) => {
         }
     })
     .then(res => res.json())
-    .then(res => dispatch(addMeme(res)))
-    .catch(err => {
-        alert(`Your meme couldn't be posted` + err.message)
-    })
+    .then(memes => {dispatch(addMeme(memes))})
+    .catch(err => {dispatch(memeFailed(err.message))})
 }
 
 export const deleteMemes = (memeId) => (dispatch) => {
@@ -67,10 +63,8 @@ export const deleteMemes = (memeId) => (dispatch) => {
         }
     })
     .then(response => response.json())
-    .then(response => dispatch(addMeme(response)))
-    .catch(error => {
-        alert(`Your meme couldn't be deleted` + error.message)
-    })
+    .then(memes => {dispatch(addMeme(memes))})
+    .catch(err => {dispatch(memeFailed(err.message))})
 }
 
 export const updateMemes = (memeId, name, caption, url) => (dispatch) => {
@@ -96,10 +90,8 @@ export const updateMemes = (memeId, name, caption, url) => (dispatch) => {
         }
     })
     .then(response => response.json())
-    .then(response => dispatch(addMeme(response)))
-    .catch(error => {
-        alert(`Your meme couldn't be updated\nError:` + error.message)
-    })
+    .then(memes => dispatch(addMeme(memes)))
+    .catch(err => {dispatch(memeFailed(err.message))})
 }
 
 export const addMeme = (memes) => ({

@@ -35,7 +35,6 @@ class Home extends Component {
     }
 
     showMeme() {
-        // console.log(typeof(this.props.memes))
         const memeFunction = this.props.memes.map((meme) => {
             return (
                 <div className="col-12 col-md-4 col-sm-6 mt-3" key={meme.id}>
@@ -157,32 +156,21 @@ class Home extends Component {
                                     <Label htmlFor="name">Your Name</Label>
                                     <Control.text className="form-control" id="name" name="name"
                                         model=".name" placeholder="Your Name" defaultValue={this.state.name}
-                                        disabled validators={{ minLength: minLength(3)}} />
-                                    <Errors className="text-danger"
-                                        show="touched" model=".name"
-                                        messages={{ minLength: "Must be Greater than 3 Characters" }} />
+                                        disabled />
                                 </Col>
                             </Row>
                             <Row className="form-group">
                                 <Col>
                                     <Label htmlFor="caption">Caption</Label>
                                     <Control.text className="form-control" id="caption" name="caption"
-                                        model=".caption" placeholder="Caption" defaultValue={this.state.caption}
-                                        validators={{ minLength: minLength(3)}} />
-                                    <Errors className="text-danger" 
-                                        show="touched" model=".caption" 
-                                        messages={{minLength: "Must be Greater than 3 Characters"}}/>
+                                        model=".caption" placeholder="Caption" defaultValue={this.state.caption} />
                                 </Col>
                             </Row>
                             <Row className="form-group">
                                 <Col>
                                     <Label htmlFor="url">Link</Label>
                                     <Control.text className="form-control" id="url" name="url"
-                                        model=".url" placeholder="Link" defaultValue={this.state.url}
-                                        validators={{minLength: minLength(9)}} />
-                                    <Errors className="text-danger"
-                                        show="touched" model=".url"
-                                        messages={{minLength: "Must be Greater than 9 Characters"}}/>
+                                        model=".url" placeholder="Link" defaultValue={this.state.url} />
                                 </Col>
                             </Row>
                             <Row className="form-group">
